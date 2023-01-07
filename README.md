@@ -17,7 +17,7 @@ This project has been created since it has become a chore to generate the team r
 ### Nice to Haves
 
 - [x] Move team members to a csv file
-- [ ] Have people that work only certain roles e.g. Person X only on camera duty
+- [x] Have people that work only certain roles e.g. Person X only on camera duty
 - [ ] Export as a pdf file
 - [ ] Can exclude months for individual - if they go to uni
 - [ ] Use of spare individual in case of emergency e.g. Person R emergency worker

@@ -19,14 +19,12 @@ rota = []
 for index, date in enumerate(shifts):
     members_on_duty = []
     for i, role in enumerate(roles):
-        options_for_role = []
-        qualified_members = team.get_available_qualified_members(role, members_on_duty, date)
-        for member in qualified_members:
-            if index == 0:
-                options_for_role.append(member)
-            elif member != rota[index - 1][i]:
-                options_for_role.append(member)
-        members_on_duty.append(random.choice(options_for_role))
+        previously_on_duty = rota[index - 1][i] if index != 0 else None
+        qualified_members = team.get_available_qualified_members(role, members_on_duty, date, previously_on_duty)
+        print(f'{role}: {[member.name for member in qualified_members]}')
+        member_on_duty = random.choice(qualified_members)
+        member_on_duty.log_role_count(role)
+        members_on_duty.append(member_on_duty.name)
     rota.append([*members_on_duty, ""])
 
 # Generate csv table for all the possible roles

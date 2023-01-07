@@ -13,7 +13,7 @@ This project has been created since it has become a chore to generate the team r
 - [ ] Equal working shifts - equal number total (if one can only work certain shifts reduced shifts)
   - [x] Count 2 of every position, if someone has done a role more than twice they are required a break from that role until all others have reached 2 then all is reset. This only applies if the individual can do all roles
   - [x] Give breaks after 3 shifts back to back
-- [ ] Extract dates for rota generation
+- [x] Extract dates for rota generation
 
 ### Nice to Haves
 

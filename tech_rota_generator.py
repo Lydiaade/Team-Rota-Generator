@@ -16,16 +16,21 @@ shifts = generate_shifts(start_month, end_month, year)
 
 # Randomly assign roles to members
 rota = []
-for index, date in enumerate(shifts):
-    members_on_duty = []
-    for i, role in enumerate(roles):
-        previously_on_duty = rota[index - 1][i] if index != 0 else None
-        qualified_members = team.get_available_qualified_members(role, members_on_duty, date, previously_on_duty)
-        print(f'{role}: {[member.name for member in qualified_members]}')
-        member_on_duty = random.choice(qualified_members)
-        member_on_duty.log_role_count(role)
-        members_on_duty.append(member_on_duty.name)
-    rota.append([*members_on_duty, ""])
+while not rota:
+    try:
+        for index, date in enumerate(shifts):
+            team.assign_off_days(date)
+            members_on_duty = []
+            for i, role in enumerate(roles):
+                previously_on_duty = rota[index - 1][i] if index != 0 else None
+                qualified_members = team.get_available_qualified_members(role, members_on_duty, date, previously_on_duty)
+                member_on_duty = random.choice(qualified_members)
+                member_on_duty.log_role_count(role)
+                members_on_duty.append(member_on_duty.name)
+            rota.append([*members_on_duty, ""])
+    except IndexError:
+        rota = []
+        team.reset_all_values()
 
 # Generate csv table for all the possible roles
 positions = ["Propresenter", "Livestream", "Camera 1", "Camera 2"]

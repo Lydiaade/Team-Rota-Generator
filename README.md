@@ -11,7 +11,8 @@ This project has been created since it has become a chore to generate the team r
 - [x] No-one does the same role back to back
 - [x] Can exclude dates specified by individuals
 - [ ] Equal working shifts - equal number total (if one can only work certain shifts reduced shifts)
-  - [x]Count 2 of every position, if someone has done a role more than twice they are required a break from that role until all others have reached 2 then all is reset. This only applies if the individual can do all roles
+  - [x] Count 2 of every position, if someone has done a role more than twice they are required a break from that role until all others have reached 2 then all is reset. This only applies if the individual can do all roles
+  - [x] Give breaks after 3 shifts back to back
 - [ ] Extract dates for rota generation
 
 ### Nice to Haves
@@ -23,3 +24,4 @@ This project has been created since it has become a chore to generate the team r
 - [ ] Use of spare individual in case of emergency e.g. Person R emergency worker
 - [ ] Configure special services if there are and assign additional role
 - [ ] Generate positions based on number of equipment
+- [ ] Use of probability to allocate members to shifts

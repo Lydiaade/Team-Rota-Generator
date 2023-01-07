@@ -12,6 +12,7 @@ This project has been created since it has become a chore to generate the team r
 - [ ] A week off for everyone every 3 weeks
 - [ ] Can exclude dates specified by individuals
 - [ ] Equal working shifts - equal number total
+- [ ] Extract dates for rota generation
 
 ### Nice to Haves
 

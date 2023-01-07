@@ -8,10 +8,9 @@ This project has been created since it has become a chore to generate the team r
 
 - [x] Can specify dates for generation between certain time periods
 - [x] Exports csv file of rota with dates and individuals working
-- [x] Noone does the same role back to back
-- [ ] A week off for everyone every 3 weeks
-- [ ] Can exclude dates specified by individuals
-- [ ] Equal working shifts - equal number total
+- [x] No-one does the same role back to back
+- [x] Can exclude dates specified by individuals
+- [ ] Equal working shifts - equal number total (if one can only work certain shifts reduced shifts)
 - [ ] Extract dates for rota generation
 
 ### Nice to Haves

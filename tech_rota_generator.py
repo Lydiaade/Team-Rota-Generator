@@ -16,11 +16,11 @@ shifts = generate_shifts(start_month, end_month, year)
 
 # Randomly assign roles to members
 rota = []
-for index, shift in enumerate(shifts):
+for index, date in enumerate(shifts):
     members_on_duty = []
     for i, role in enumerate(roles):
         options_for_role = []
-        qualified_members = team.get_available_qualified_members(role, members_on_duty)
+        qualified_members = team.get_available_qualified_members(role, members_on_duty, date)
         for member in qualified_members:
             if index == 0:
                 options_for_role.append(member)

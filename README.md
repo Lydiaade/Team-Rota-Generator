@@ -34,3 +34,8 @@ outputs the rota for a specific time period.
 - [ ] Add instructional guide of how to use system
 - [ ] Pull out roles and generate template csv file based on roles
 - [ ] Avoid overwriting previous rota generated -> currently same file name is used
+
+### Practices to implement
+- Test driven development, testing all lines of code
+- Test coverage on the project
+- Improved architecture of classes

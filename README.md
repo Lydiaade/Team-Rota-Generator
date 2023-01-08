@@ -22,18 +22,18 @@ outputs the rota for a specific time period.
 
 - [x] Move team members to a csv file
 - [x] Have people that work only certain roles e.g. Person X only on camera duty
+- [ ] Limit the rota generation to 3 months, confirm if user wants to proceed and generate for extended period
+- [ ] Pull out roles and generate template csv file based on roles
 - [ ] Export as a pdf file -> pretty pdf
+- [ ] Avoid overwriting previous rota generated -> currently same file name is used
 - [ ] Can exclude months for individual - if they go to uni
 - [ ] Use of spare individual in case of emergency e.g. Person R emergency worker
 - [ ] Configure special services if there are and assign additional role
 - [ ] Generate positions based on number of equipment
 - [ ] Use of probability to allocate members to shifts
 - [ ] Consider previous rota and generate dates with the same rules
-- [ ] Limit the rota generation to 3 months, confirm if user wants to proceed and generate for extended period
 - [ ] Only add dates of unavailability if after date.now()
 - [ ] Add instructional guide of how to use system
-- [ ] Pull out roles and generate template csv file based on roles
-- [ ] Avoid overwriting previous rota generated -> currently same file name is used
 
 
 ### Big Goals

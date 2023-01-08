@@ -5,19 +5,20 @@ import sys
 import numpy as np
 import pandas as pd
 
-from shifts import generate_shifts
+from shifts import ShiftService
 from team import TeamMembers, roles
 
 
 def generate_rota(start_month_year: str, end_month_year: str, team_members_csv: str = "team_members.csv"):
-    shifts = generate_shifts(start_month_year, end_month_year)
+    shift_service = ShiftService(start_month_year, end_month_year)
     team = TeamMembers(team_members_csv)
+
 
     # Randomly assign roles to members
     rota = []
     while not rota:
         try:
-            for index, date in enumerate(shifts):
+            for index, date in enumerate(shift_service.get_iso_shift_dates()):
                 team.assign_off_days(date)
                 members_on_duty = []
                 for i, role in enumerate(roles):
@@ -36,7 +37,7 @@ def generate_rota(start_month_year: str, end_month_year: str, team_members_csv: 
     positions = ["Propresenter", "Livestream", "Camera 1", "Camera 2"]
     array = np.array(rota)
 
-    df = pd.DataFrame(data=array, index=shifts, columns=positions)
+    df = pd.DataFrame(data=array, index=shift_service.get_full_shift_dates(), columns=positions)
     filename = f"{start_month_year.replace('/','_')}to{end_month_year.replace('/','_')}rota.csv"
     print(f"File name: {filename}")
     df.to_csv(f"generated_rotas/{filename}")

@@ -1,4 +1,4 @@
-# Tech Team Rota Generation
+# Team Rota Generation
 
 ## Context
 

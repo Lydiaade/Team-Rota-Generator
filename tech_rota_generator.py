@@ -37,6 +37,11 @@ def generate_rota(start_month_year: str, end_month_year: str, team_members_csv: 
     positions = ["Propresenter", "Livestream", "Camera 1", "Camera 2"]
     array = np.array(rota)
 
+    # Log number of shifts per person
+    for member in team.team_members:
+        print(f'{member.name} {member.total_role_count}')
+        print(f'Total number of shifts: {sum(member.total_role_count.values())}')
+
     df = pd.DataFrame(data=array, index=shift_service.get_full_shift_dates(), columns=positions)
     filename = f"{start_month_year.replace('/','_')}to{end_month_year.replace('/','_')}rota.csv"
     print(f"File name: {filename}")

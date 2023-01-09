@@ -1,4 +1,5 @@
 import csv
+from datetime import datetime
 from enum import Enum
 from typing import List, Dict
 
@@ -46,7 +47,8 @@ class Member:
         self.roles = [Role(role) for role in roles if eval(row[role])]
 
     def _extract_unavailable_days(self, row: dict) -> None:
-        self.unavailable_days = [parse(day).date().isoformat() for day in row["Unavailability"].split()]
+        unavailable = [datetime.strptime(day, '%d/%m/%Y').date().isoformat() for day in row["Unavailability"].split()]
+        self.unavailable_days = unavailable
 
 
 class TeamMembers:

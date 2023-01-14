@@ -1,12 +1,10 @@
 import csv
 import re
-from datetime import datetime
+from datetime import datetime, date
 from enum import Enum
 from typing import List, Dict
 
-from dateutil.parser import parse
-
-from shifts import ShiftService, get_sundays_between_dates
+from shifts import get_sundays_between_dates
 
 roles = ["Propresenter", "Livestream", "Camera"]
 
@@ -19,7 +17,7 @@ class Role(Enum):
 
 class Member:
     name: str
-    unavailable_days: List[str]
+    unavailable_days: List[date]
     roles: List[Role]
     at_risk_of_overworking = bool
     repeated_shift_count = 0
@@ -33,7 +31,6 @@ class Member:
         self._extract_unavailable_days(row)
         self.at_risk_of_overworking = len(self.roles) == len(roles)
         self.reset_values()
-
 
     def log_role_count(self, role: str) -> None:
         self.monitored_role_count[role] += 1
@@ -52,14 +49,18 @@ class Member:
     def _extract_unavailable_days(self, row: dict) -> None:
         unavailable = []
         for dates in row["Unavailability"].split():
-            print(dates)
-            if re.match(r'[0-9]*\/[0-9]*\/[0-9]{4}-[0-9]*\/[0-9]*\/[0-9]{4}', dates):
-                start_end_dates = [datetime.strptime(date, '%d/%m/%Y').date() for date in dates.split('-')]
+            if re.match(r"[0-9]*\/[0-9]*\/[0-9]{4}-[0-9]*\/[0-9]*\/[0-9]{4}", dates):
+                start_end_dates = [
+                    datetime.strptime(day, "%d/%m/%Y").date()
+                    for day in dates.split("-")
+                ]
                 unavailable_dates = get_sundays_between_dates(*start_end_dates)
-                unavailable.extend([date.isoformat() for date in unavailable_dates])
+                unavailable.extend(unavailable_dates)
             else:
-                unavailable.append(datetime.strptime(dates, '%d/%m/%Y').date().isoformat())
+                unavailable.append(datetime.strptime(dates, "%d/%m/%Y").date())
 
+        print(unavailable)
+        unavailable = [day for day in unavailable if day > date.today()]
         print(unavailable)
         self.unavailable_days = unavailable
 
@@ -70,24 +71,36 @@ class TeamMembers:
     def __init__(self, filename: str) -> None:
         self._extract_members_from_csv(filename)
 
-    def get_available_qualified_members(self, role: str, members_already_on_duty: List[str], shift_date: str,
-                                        previously_on_duty: str) -> List[Member]:
+    def get_available_qualified_members(
+        self,
+        role: str,
+        members_already_on_duty: List[str],
+        shift_date: date,
+        previously_on_duty: str,
+    ) -> List[Member]:
 
-        available_members = self.generate_available_members(members_already_on_duty, previously_on_duty, role,
-                                                            shift_date)
+        available_members = self.generate_available_members(
+            members_already_on_duty, previously_on_duty, role, shift_date
+        )
 
         if len(available_members) <= len(self._get_specific_members_for_role(role)):
             self._reset_role_count(role)
-            available_members = self.generate_available_members(members_already_on_duty, previously_on_duty, role,
-                                                                shift_date)
+            available_members = self.generate_available_members(
+                members_already_on_duty, previously_on_duty, role, shift_date
+            )
         return available_members
 
-    def generate_available_members(self, members_already_on_duty, previously_on_duty, role,
-                                   shift_date):
+    def generate_available_members(
+        self, members_already_on_duty, previously_on_duty, role, shift_date
+    ):
         available_members = []
         for member in self._get_members_for_role(role):
-            if member.name in members_already_on_duty or shift_date in member.unavailable_days \
-                    or member.name == previously_on_duty or shift_date in member.off_days:
+            if (
+                member.name in members_already_on_duty
+                or shift_date in member.unavailable_days
+                or member.name == previously_on_duty
+                or shift_date in member.off_days
+            ):
                 pass
             elif member.at_risk_of_overworking:
                 if member.monitored_role_count[role] < 3:
@@ -96,7 +109,7 @@ class TeamMembers:
                 available_members.append(member)
         return available_members
 
-    def assign_off_days(self, shift_date: str):
+    def assign_off_days(self, shift_date: date):
         for member in self.team_members:
             if member.repeated_shift_count > 3:
                 member.off_days.append(shift_date)
@@ -110,7 +123,11 @@ class TeamMembers:
         return [member for member in self.team_members if Role(role) in member.roles]
 
     def _get_specific_members_for_role(self, role: str) -> List[Member]:
-        return [member for member in self.team_members if Role(role) in member.roles and len(member.roles) == 1]
+        return [
+            member
+            for member in self.team_members
+            if Role(role) in member.roles and len(member.roles) == 1
+        ]
 
     def _reset_role_count(self, role: str) -> None:
         for member in self._get_members_for_role(role):
@@ -118,7 +135,7 @@ class TeamMembers:
 
     def _extract_members_from_csv(self, filename: str) -> None:
         members = []
-        with open(f'team_members/{filename}', newline='') as file:
+        with open(f"team_members/{filename}", newline="") as file:
             reader = csv.DictReader(file)
             for row in reader:
                 members.append(Member(row))

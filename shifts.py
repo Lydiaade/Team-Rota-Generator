@@ -19,16 +19,16 @@ def get_sundays_between_dates(start_date: date, end_date: date) -> List[date]:
 
 
 class ShiftService:
-    _shifts: [date]
+    shifts: [date]
 
     def __init__(self, start_month_year: str, end_month_year: str):
-        self._shifts = self._generate_shifts(start_month_year, end_month_year)
+        self.shifts = self._generate_shifts(start_month_year, end_month_year)
 
     def get_iso_shift_dates(self) -> List[str]:
-        return [shift.isoformat() for shift in self._shifts]
+        return [shift.isoformat() for shift in self.shifts]
 
     def get_full_shift_dates(self) -> List[str]:
-        return [shift.strftime("%A %d %B %Y") for shift in self._shifts]
+        return [shift.strftime("%A %d %B %Y") for shift in self.shifts]
 
     def _generate_shifts(
         self, start_month_year: str, end_month_year: str

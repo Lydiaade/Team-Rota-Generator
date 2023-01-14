@@ -22,7 +22,7 @@ outputs the rota for a specific time period.
 
 - [x] Move team members to a csv file
 - [x] Have people that work only certain roles e.g. Person X only on camera duty
-- [ ] Can exclude months for individual - if they go to uni
+- [x] Can exclude months for individual - if they go to uni
 - [ ] Limit the rota generation to 3 months, confirm if user wants to proceed and generate for extended period
 - [ ] Pull out roles and generate template csv file based on roles
 - [ ] Export as a pdf file -> pretty pdf

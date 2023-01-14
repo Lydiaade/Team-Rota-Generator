@@ -1,9 +1,12 @@
 import csv
+import re
 from datetime import datetime
 from enum import Enum
 from typing import List, Dict
 
 from dateutil.parser import parse
+
+from shifts import ShiftService, get_sundays_between_dates
 
 roles = ["Propresenter", "Livestream", "Camera"]
 
@@ -47,7 +50,17 @@ class Member:
         self.roles = [Role(role) for role in roles if eval(row[role])]
 
     def _extract_unavailable_days(self, row: dict) -> None:
-        unavailable = [datetime.strptime(day, '%d/%m/%Y').date().isoformat() for day in row["Unavailability"].split()]
+        unavailable = []
+        for dates in row["Unavailability"].split():
+            print(dates)
+            if re.match(r'[0-9]*\/[0-9]*\/[0-9]{4}-[0-9]*\/[0-9]*\/[0-9]{4}', dates):
+                start_end_dates = [datetime.strptime(date, '%d/%m/%Y').date() for date in dates.split('-')]
+                unavailable_dates = get_sundays_between_dates(*start_end_dates)
+                unavailable.extend([date.isoformat() for date in unavailable_dates])
+            else:
+                unavailable.append(datetime.strptime(dates, '%d/%m/%Y').date().isoformat())
+
+        print(unavailable)
         self.unavailable_days = unavailable
 
 

@@ -59,9 +59,7 @@ class Member:
             else:
                 unavailable.append(datetime.strptime(dates, "%d/%m/%Y").date())
 
-        print(unavailable)
         unavailable = [day for day in unavailable if day > date.today()]
-        print(unavailable)
         self.unavailable_days = unavailable
 
 
@@ -135,7 +133,7 @@ class TeamMembers:
 
     def _extract_members_from_csv(self, filename: str) -> None:
         members = []
-        with open(f"team_members/{filename}", newline="") as file:
+        with open(f"resources/team_members/{filename}", newline="") as file:
             reader = csv.DictReader(file)
             for row in reader:
                 members.append(Member(row))

@@ -1,5 +1,5 @@
 venv
-team_members
+resources/team_members
 generated_rotas
 .idea
 __pycache__

@@ -34,6 +34,7 @@ outputs the rota for a specific time period.
 - [ ] Consider previous rota and generate dates with the same rules
 - [x] Only add dates of unavailability if after date.now()
 - [ ] Add instructional guide of how to use system
+- [ ] Send icalendar invites to members to ensure awareness of shifts
 
 ### Identified bugs
 - The 3 weeks and then time off given does not work currently individuals are being given 4 week back to back shifts

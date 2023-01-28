@@ -4,7 +4,7 @@ from datetime import datetime, date
 from enum import Enum
 from typing import List, Dict
 
-from shifts import get_sundays_between_dates
+from src.shifts import get_sundays_between_dates
 
 roles = ["Propresenter", "Livestream", "Camera"]
 
@@ -59,7 +59,7 @@ class Member:
             else:
                 unavailable.append(datetime.strptime(dates, "%d/%m/%Y").date())
 
-        unavailable = [day for day in unavailable if day > date.today()]
+        # unavailable = [day for day in unavailable if day > date.today()]
         self.unavailable_days = unavailable
 
 

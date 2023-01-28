@@ -16,4 +16,8 @@ create-venv:
 	echo "Virtual environment set up successfully"
 
 test:
-	pytest
+	pytest tests
+
+coverage:
+	coverage run -m pytest tests
+	coverage report -m

@@ -4,7 +4,7 @@ from datetime import datetime, date
 from enum import Enum
 from typing import List, Dict
 
-from src.shifts import get_sundays_between_dates
+from shifts import get_sundays_between_dates
 
 roles = ["Propresenter", "Livestream", "Camera"]
 

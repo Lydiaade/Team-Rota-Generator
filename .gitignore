@@ -3,3 +3,4 @@ resources/team_members
 generated_rotas
 .idea
 __pycache__
+.coverage

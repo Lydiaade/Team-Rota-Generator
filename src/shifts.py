@@ -38,7 +38,7 @@ class ShiftService:
             start_month_year
         )  # 1st Day of Month
 
-        start_date = date.today() if start_date < date.today() else start_date
+        # start_date = date.today() if start_date < date.today() else start_date
 
         end_date = self._get_date_from_month_year(end_month_year)
 
